@@ -1,38 +1,64 @@
-findHappyNumber(200);
+findHappyNumber(921);
 
 function findHappyNumber(number) {
-//let squareArray = [];
-//let happyIntegers = [];
-//let sumHappy = 0;
-let numberString = number.toString();
 	
-	function splitToString(number) {
-	let numberArray = numberString.split(""); // split the number into its component parts
-	//step 2: take the square of array[0]
+	let testedNumbersArray = [];
+
+	let numberString = convertNumberToString(number);
+
+	let numArr = splitStringToArray(numberString);
+	console.log(numArr);
+	
+	let sqrdArr = squareOfArrayElements(numArr);
+	console.log(sqrdArr);
+	
+	let sumHappy = addHappyIntegers(sqrdArr);
+	console.log(sumHappy);
+	
+	checkHappy(sumHappy, number);
+	
+	findHappyNumber(sumHappy);
+	}	
+
+	function convertNumberToString(number) {
+		let numString = number.toString();
+		return numString;
 	}
 	
-	function getSquareRoot(numberArray){
-		let squareRootArray = [];
+	function splitStringToArray(numberString) {
+		let numberArray = numberString.split("");
+		console.log(numberArray);
+		return numberArray;
+		}
+	
+	function squareOfArrayElements(numberArray){
+		let squareArray = [];
 		for (i=0; i < numberArray.length; i++) {
-			squareRootArray.push(Math.sqrt(numberArray[i]));
+			squareArray.push(Math.pow(numberArray[i], 2));
 		}
-		
-	}
-	
-	function makeIntegers(squareRootArray) {
-		let happyIntegers = [];
-		for (i=0; i < squareRootArray.length; i++) {
-			happyIntegers.push(Math.floor(squareRootArray[i]));
-		}
+		console.log(squareArray);
+		return squareArray;
 	}
 	
 	function addHappyIntegers(happyIntegers){
+		function getSum (total, num){
+			return total + num;
+		}
 		for (i=0; i < happyIntegers.length; i++) {
-			let sumHappy = happyIntegers.reduce();
+			let sumHappy = happyIntegers.reduce(getSum);
+			return sumHappy;
 			}
 	}
 
-	function checkHappy(sumHappy) {
+	function checkHappy(sumHappy, number) {
 		if (sumHappy == 1) {
 			console.log(number + " is happy!");
-	
+		}
+		else {
+			testedNumbersArray.push(sumHappy);
+			findHappyNumber(sumHappy);
+		}
+	}
+
+	function testNumbers(testedNumbersArray) {
+		
